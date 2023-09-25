@@ -2,7 +2,8 @@
 
 const Client = require("../models/client");
 const Address = require("../models/address");
-
+// const baseUrl = "http://mantenimientoandino.co:3000"
+const baseUrl = "http://localhost:3100/";
 // Crear un nuevo cliente
 async function createClient(req, res) {
   try {
@@ -25,7 +26,8 @@ async function createClient(req, res) {
       avatar: clientStored.avatar,
       joinDate: clientStored.joinDate,
       active: clientStored.active,
-      direccion: clientStored.direccion._id, // Devuelve el objeto de dirección completo
+      national: clientStored.national, 
+      state: clientStored.state, 
     });
 
     console.log(clientStored);
@@ -37,8 +39,10 @@ async function createClient(req, res) {
 
 // Obtener todos los clientes
 async function getAllClients(req, res) {
+  console.log("Entró a getAllClients");
   try {
     const clients = await Client.find();
+
     res.json(clients);
   } catch (error) {
     res.status(500).json({ error: "Error al obtener los clientes" });

@@ -66,35 +66,31 @@ async function getServiceById(req, res) {
 }
 
 async function updateService(req, res) {
-  const { id } = req.params;
-  const { name, description, categoryService } = req.body;
-
-  console.log("req.files", req.files);
+  console.log("req.files", req.body);
   const photos = Array.isArray(req.files.photos)
     ? req.files.photos.map((file) => file.path)
     : [];
   console.log("photos", photos);
+  const { id } = req.params;
+  const { name, description, categoryService } = req.body;
+  const updatedService = {
+    name,
+    description,
+    photos,
+    categoryService,
+  };
 
+  console.log("updatedService", updatedService);
   try {
-    const serviceData = {
-      name,
-      description,
-      categoryService,
-      photos, 
-    };
-
-    const updatedService = await Service.findByIdAndUpdate(id, serviceData, {
-      new: true,
-    });
-
-    if (!updatedService) {
+    const service = await Service.findById(id);
+    if (!service) {
       return res.status(404).send({ msg: "Servicio no encontrado" });
     }
-
-    res.status(200).send(updatedService); // Enviar el servicio actualizado como respuesta
+    await Service.findByIdAndUpdate(id, updatedService);
+    res.status(200).send({ msg: "Servicio actualizado" });
   } catch (error) {
     console.error(error);
-    res.status(400).send({ msg: "Error al actualizar el servicio" });
+    res.status(500).send({ msg: "Error del servidor" });
   }
 }
 

@@ -19,7 +19,9 @@ const alliesRoutes = require("./routes/ally");
 const certificationsRoutes = require("./routes/certification");
 const projectRoutes = require("./routes/project");
 const foundationRoutes = require("./routes/foundation");
-const newsFoundationRoutes = require("./routes/newsFoundation");
+const makinaAndinaRoutes = require("./routes/makinaAndina");
+const makinaAndinaMiamiRoutes = require("./routes/makinaAndinaMiami");
+const glampingRoutes = require("./routes/glamping");
 
 // Configure Body Parser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,6 +48,8 @@ app.use(`/api/${API_VERSION}/admin/allies`, alliesRoutes);
 app.use(`/api/${API_VERSION}/admin/certifications`, certificationsRoutes);
 app.use(`/api/${API_VERSION}/admin/projects`, projectRoutes);
 app.use(`/api/${API_VERSION}/admin/foundations`, foundationRoutes);
-app.use(`/api/${API_VERSION}/admin/newsFoundation`, newsFoundationRoutes);
+app.use(`/api/${API_VERSION}/admin/makina-andina`, makinaAndinaRoutes);
+app.use(`/api/${API_VERSION}/admin/makina-andina-miami`, makinaAndinaMiamiRoutes);
+app.use(`/api/${API_VERSION}/admin/glamping`, glampingRoutes);
 
 module.exports = app;
